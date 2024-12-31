@@ -8,9 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { id } = req.query;
 
   try {
-    // Fetch movie details
+    // Fetch movie details with credits and videos
     const response = await axios.get(
-      `${BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&append_to_response=videos`
+      `${BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&append_to_response=credits,videos`
     );
 
     const transformedData = {
@@ -23,7 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       Poster: response.data.poster_path ? `https://image.tmdb.org/t/p/w500${response.data.poster_path}` : 'N/A',
       Runtime: `${response.data.runtime} min`,
       Genre: response.data.genres.map((g: { name: string }) => g.name).join(', '),
-      videos: response.data.videos
+      videos: response.data.videos,
+      credits: response.data.credits // Add full credits for cast section
     };
 
     res.status(200).json(transformedData);
