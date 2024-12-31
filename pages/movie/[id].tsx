@@ -20,6 +20,14 @@ interface MovieDetails {
       type: string;
     }[];
   };
+  credits?: {
+    cast: {
+      id: number;
+      name: string;
+      character: string;
+      profile_path: string | null;
+    }[];
+  };
 }
 
 const MoviePage = () => {
@@ -107,6 +115,34 @@ const MoviePage = () => {
               <p>{movie.Plot}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="font-semibold text-xl mb-4">Cast</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {movie.credits?.cast.slice(0, 8).map((actor) => (
+            <div
+              key={actor.id}
+              className="bg-white rounded-lg shadow p-3 flex flex-col items-center text-center"
+            >
+              {actor.profile_path ? (
+                <Image
+                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                  alt={actor.name}
+                  width={100}
+                  height={100}
+                  className="rounded-full w-20 h-20 object-cover mb-2"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-2">
+                  <span className="text-gray-400">No Photo</span>
+                </div>
+              )}
+              <h3 className="font-medium">{actor.name}</h3>
+              <p className="text-sm text-gray-600">{actor.character}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
