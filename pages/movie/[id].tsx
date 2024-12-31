@@ -58,7 +58,7 @@ const MoviePage = () => {
               alt={movie.Title}
               width={500}
               height={288}
-              className="w-full h-72 object-cover mb-4 rounded"
+              className="w-full h-72 object-contain mb-4 rounded"
             />
           )}
         </div>

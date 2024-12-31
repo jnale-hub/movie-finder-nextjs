@@ -4,10 +4,17 @@ import Layout from "@/components/Layout";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  const handleSearch = (query: string) => {
+    router.push(`/?search=${query}`);
+  };
+
   return (
     <>
       <Head>
@@ -17,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <div className={inter.className}>
         <ErrorBoundary>
-          <Layout>
+          <Layout onSearch={handleSearch}>
             <Component {...pageProps} />
           </Layout>
         </ErrorBoundary>
