@@ -2,11 +2,22 @@ import Link from 'next/link';
 
 const categories = [
   { name: 'Action', id: 'action' },
+  { name: 'Adventure', id: 'adventure' },
+  { name: 'Animation', id: 'animation' },
   { name: 'Comedy', id: 'comedy' },
+  { name: 'Crime', id: 'crime' },
+  { name: 'Documentary', id: 'documentary' },
   { name: 'Drama', id: 'drama' },
+  { name: 'Family', id: 'family' },
+  { name: 'Fantasy', id: 'fantasy' },
+  { name: 'History', id: 'history' },
   { name: 'Horror', id: 'horror' },
-  { name: 'Sci-Fi', id: 'sci-fi' },
-  { name: 'Thriller', id: 'thriller' }
+  { name: 'Music', id: 'music' },
+  { name: 'Mystery', id: 'mystery' },
+  { name: 'Romance', id: 'romance' },
+  { name: 'Thriller', id: 'thriller' },
+  { name: 'War', id: 'war' },
+  { name: 'Western', id: 'western' }
 ];
 
 export default function Sidebar() {
