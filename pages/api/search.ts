@@ -45,7 +45,7 @@ export default async function handler(
     }
 
     const transformedData = {
-      Search: response.data.results.map((movie: any) => ({
+      Search: response.data.results.map((movie: { id: number; title: string; release_date: string; poster_path: string | null }) => ({
         imdbID: movie.id,
         Title: movie.title,
         Year: movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A',

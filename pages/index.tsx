@@ -19,7 +19,7 @@ export default function Home() {
       const response = await axios.get('/api/search?trending=true');
       setTrending(response.data.Search || []);
       setError('');
-    } catch (err) {
+    } catch {
       setError('Failed to fetch trending movies');
       setTrending([]);
     } finally {
@@ -33,7 +33,7 @@ export default function Home() {
       const response = await axios.get(`/api/search?title=${encodeURIComponent(query)}`);
       setResults(response.data.Search || []);
       setError('');
-    } catch (err) {
+    } catch {
       setError('Failed to fetch movies');
       setResults([]);
     } finally {

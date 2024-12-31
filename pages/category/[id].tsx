@@ -22,7 +22,7 @@ export default function CategoryPage() {
     try {
       const response = await axios.get(`/api/search?genre=${id}`);
       setMovies(response.data.Search || []);
-    } catch (err) {
+    } catch {
       setError('Failed to fetch movies');
     } finally {
       setLoading(false);
