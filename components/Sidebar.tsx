@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const categories = [
@@ -30,7 +30,7 @@ export default function Sidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed bottom-4 right-4 z-50 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
+        className="lg:hidden fixed bottom-4 right-4 z-50 bg-amber-400 text-neutral-950 p-3 rounded-full shadow-lg hover:bg-amber-500 transition-colors"
       >
         {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </button>
@@ -45,26 +45,26 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white shadow-md transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-60 shadow-md transform transition-transform duration-300 ease-in-out max-lg:bg-neutral-900 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="p-4 h-full overflow-y-auto">
+        <div className="pt-6 p-4 h-full overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Categories</h2>
+            <h2 className="text-xl font-bold text-amber-400">Categories</h2>
             <button
               onClick={() => setIsOpen(false)}
-              className="lg:hidden text-gray-500 hover:text-gray-700"
+              className="lg:hidden text-neutral-200 hover:text-neutral-300"
             >
               <FiX size={24} />
             </button>
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-2 text-sm">
             {categories.map((category) => (
               <li key={category.id}>
                 <Link
                   href={`/category/${category.id}`}
-                  className="block p-2 rounded hover:bg-gray-100 transition-colors"
+                  className="block p-2 rounded hover:bg-neutral-800 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {category.name}
