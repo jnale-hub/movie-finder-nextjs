@@ -34,10 +34,10 @@ export function MovieHero({ movie }: MovieHeroProps) {
               onClick={() => setIsPlaying(true)}
               className="absolute bottom-4 left-4 flex gap-4 items-center group transform"
             >
-              <div className="max-md:hidden flex size-16 items-center justify-center rounded-full bg-transparent border-4  border-white group-hover:border-amber-400">
-                <FaPlay className="md:size-6 size-4 pl-1 group-hover:text-amber-400" />
+              <div className="max-md:hidden flex lg:size-16 size-12 items-center justify-center rounded-full bg-transparent lg:border-4 border-[3px] border-white group-hover:border-amber-400">
+                <FaPlay className="lg:size-6 size-4 pl-1 group-hover:text-amber-400" />
               </div>
-              <span onClick={() => setIsPlaying(true)} className="text-sm md:text-xl">Play video</span>
+              <span onClick={() => setIsPlaying(true)} className="text-sm md:text-xl">Play trailer</span>
             </button>
 
             <button
