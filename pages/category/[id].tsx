@@ -1,5 +1,5 @@
 import { MovieList } from "@/components/movies";
-import { Skeleton } from "@/components/ui";
+import { Error, Skeleton } from "@/components/ui";
 import { Movie } from "@/types/movie";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -32,7 +32,11 @@ export default function CategoryPage() {
   };
 
   if (loading) return <Skeleton />;
-  if (error) return <div>{error}</div>;
+  if (error) {
+    return (
+      <Error error={error} />
+    );
+  }
 
   return (
     <div className="container mx-auto">

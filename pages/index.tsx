@@ -1,5 +1,5 @@
 import { MovieList } from "@/components/movies";
-import { Skeleton } from "@/components/ui";
+import { Error, Skeleton } from "@/components/ui";
 import { Movie } from "@/types/movie";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -27,13 +27,18 @@ export default function Home() {
     }
   };
 
+  // Add error handling in the search or data fetching functions
   const searchMovies = async (query: string) => {
     setLoading(true);
     try {
       const response = await axios.get(
         `/api/search?title=${encodeURIComponent(query)}`
       );
-      setResults(response.data.Search || []);
+      if (!response.data.Search?.length) {
+        setError("No movies found matching your search");
+        return;
+      }
+      setResults(response.data.Search);
       setError("");
     } catch {
       setError("Failed to fetch movies");
@@ -59,9 +64,7 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-red-500 text-center">{error}</div>
-      </div>
+      <Error error={error} />
     );
   }
 

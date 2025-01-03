@@ -1,7 +1,7 @@
 import { CastGrid } from "@/components/movies/CastGrid";
 import { MovieHero } from "@/components/movies/MovieHero";
 import { MovieInfo } from "@/components/movies/MovieInfo";
-import { MovieSkeleton } from "@/components/ui";
+import { Error, MovieSkeleton } from "@/components/ui";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -60,7 +60,11 @@ export default function MoviePage() {
   };
 
   if (loading) return <MovieSkeleton />;
-  if (error) return <div className="text-center text-red-500">{error}</div>;
+  if (error) {
+    return (
+      <Error error={error} />
+    );
+  }
   if (!movie) return <div className="text-center">Movie not found</div>;
 
   return (
