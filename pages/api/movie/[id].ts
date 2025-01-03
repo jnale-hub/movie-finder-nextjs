@@ -1,10 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
+import type { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const BASE_URL = 'https://api.themoviedb.org/3';
+const BASE_URL = "https://api.themoviedb.org/3";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query;
 
   try {
@@ -17,19 +20,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       Title: response.data.title,
       Year: new Date(response.data.release_date).getFullYear(),
       Plot: response.data.overview,
-      Director: response.data.credits?.crew?.find(person => person.job === 'Director')?.name || 'N/A',
-      Actors: response.data.credits?.cast?.slice(0, 3).map(actor => actor.name).join(', '),
+      Director:
+        response.data.credits?.crew?.find((person) => person.job === "Director")
+          ?.name || "N/A",
+      Actors: response.data.credits?.cast
+        ?.slice(0, 3)
+        .map((actor) => actor.name)
+        .join(", "),
       imdbRating: (response.data.vote_average / 2).toFixed(1),
-      Poster: response.data.poster_path ? `https://image.tmdb.org/t/p/w500${response.data.poster_path}` : 'N/A',
+      Poster: response.data.poster_path
+        ? `https://image.tmdb.org/t/p/w500${response.data.poster_path}`
+        : "N/A",
       Runtime: `${response.data.runtime} min`,
-      Genre: response.data.genres.map((g: { name: string }) => g.name).join(', '),
+      Genre: response.data.genres
+        .map((g: { name: string }) => g.name)
+        .join(", "),
       videos: response.data.videos,
-      credits: response.data.credits // Add full credits for cast section
+      credits: response.data.credits,
     };
 
     res.status(200).json(transformedData);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to fetch movie details' });
+    res.status(500).json({ error: "Failed to fetch movie details" });
   }
 }

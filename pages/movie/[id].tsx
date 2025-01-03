@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { CastGrid } from "@/components/movies/CastGrid";
+import { MovieHero } from "@/components/movies/MovieHero";
+import { MovieInfo } from "@/components/movies/MovieInfo";
+import { MovieSkeleton } from "@/components/ui";
 import axios from "axios";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 interface MovieDetails {
   Title: string;
@@ -30,7 +34,7 @@ interface MovieDetails {
   };
 }
 
-const MoviePage = () => {
+export default function MoviePage() {
   const router = useRouter();
   const { id } = router.query;
   const [movie, setMovie] = useState<MovieDetails | null>(null);
@@ -55,98 +59,36 @@ const MoviePage = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!movie) return <div>Movie not found</div>;
+  if (loading) return <MovieSkeleton />;
+  if (error) return <div className="text-center text-red-500">{error}</div>;
+  if (!movie) return <div className="text-center">Movie not found</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <Link href="/" className="text-blue-500 hover:text-blue-700">
-        ← Back to Search
+    <div className="container mx-auto px-4 pb-8 space-y-8">
+      <Link
+        href="/"
+        className="inline-flex items-center font-semibold gap-2 text-amber-400 hover:text-amber-500 transition-colors mb-8"
+      >
+        <span>←</span>
+        <span>Back to Search</span>
       </Link>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-        <div className="space-y-4">
-          {movie.Poster !== "N/A" && (
-            <Image
-              src={movie.Poster}
-              alt={movie.Title}
-              width={500}
-              height={288}
-              className="w-full h-72 object-contain mb-4 rounded"
-            />
-          )}
-          {movie.videos?.results?.length > 0 && (
-            <div className="aspect-w-16 aspect-h-9">
-              <iframe
-                src={`https://www.youtube.com/embed/${movie.videos.results[0].key}`}
-                title={`${movie.Title} Trailer`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full rounded"
-              />
-            </div>
-          )}
-        </div>
-
-        <div>
-          <h1 className="text-3xl font-bold mb-4">
-            {movie.Title} ({movie.Year})
-          </h1>
-          <div className="space-y-4">
-            <p>
-              <span className="font-semibold">Rating:</span> ⭐{" "}
-              {movie.imdbRating}/10
-            </p>
-            <p>
-              <span className="font-semibold">Runtime:</span> {movie.Runtime}
-            </p>
-            <p>
-              <span className="font-semibold">Genre:</span> {movie.Genre}
-            </p>
-            <p>
-              <span className="font-semibold">Director:</span> {movie.Director}
-            </p>
-            <p>
-              <span className="font-semibold">Cast:</span> {movie.Actors}
-            </p>
-            <div>
-              <h2 className="font-semibold mb-2">Plot</h2>
-              <p>{movie.Plot}</p>
-            </div>
-          </div>
-        </div>
+      <div className="flex gap-2">
+        {movie.Poster !== "N/A" && (
+          <Image
+            src={movie.Poster}
+            alt={movie.Title}
+            className="object-cover rounded-md w-1/3 aspect-[2/3]"
+            width={340}
+            height={560}
+          />
+        )}
+        <MovieHero movie={movie} />
       </div>
 
-      <div>
-        <h2 className="font-semibold text-xl mb-4">Cast</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {movie.credits?.cast.slice(0, 8).map((actor) => (
-            <div
-              key={actor.id}
-              className="bg-white rounded-lg shadow p-3 flex flex-col items-center text-center"
-            >
-              {actor.profile_path ? (
-                <Image
-                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                  alt={actor.name}
-                  width={100}
-                  height={100}
-                  className="rounded-full w-20 h-20 object-cover mb-2"
-                />
-              ) : (
-                <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-2">
-                  <span className="text-gray-400">No Photo</span>
-                </div>
-              )}
-              <h3 className="font-medium">{actor.name}</h3>
-              <p className="text-sm text-gray-600">{actor.character}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MovieInfo movie={movie} />
+
+      {movie.credits?.cast && <CastGrid cast={movie.credits.cast} />}
     </div>
   );
-};
-
-export default MoviePage;
+}
