@@ -55,13 +55,7 @@ export default function Home() {
     }
   }, [search]);
 
-  if (loading) {
-    return (
-      <div className="container mx-auto">
-        <Skeleton />
-      </div>
-    );
-  }
+  if (loading) return <Skeleton />;
 
   if (error) {
     return (
