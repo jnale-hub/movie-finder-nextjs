@@ -4,7 +4,6 @@ import { MovieInfo } from "@/components/movies/MovieInfo";
 import { Error, MovieSkeleton } from "@/components/ui";
 import axios from "axios";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState, useCallback } from "react";
 
@@ -70,14 +69,6 @@ export default function MoviePage() {
         <Error error={error} />
       ) : movie ? (
         <>
-          <Link
-            href="/"
-            className="inline-flex items-center font-semibold gap-2 text-amber-400 hover:text-amber-500 transition-colors mb-8"
-          >
-            <span>←</span>
-            <span>Back to Search</span>
-          </Link>
-
           <div className="flex gap-2">
             {movie.Poster !== "N/A" ? (
               <Image
