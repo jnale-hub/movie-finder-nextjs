@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { MovieList } from '@/components/movies';
-import { LoadingSpinner } from '@/components/ui';
-import { Movie } from '@/types/movie';
-import axios from 'axios';
-import { useRouter } from 'next/router';
+import { MovieList } from "@/components/movies";
+import { Skeleton } from "@/components/ui";
+import { Movie } from "@/types/movie";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
@@ -11,16 +11,16 @@ export default function Home() {
   const [results, setResults] = useState<Movie[]>([]);
   const [trending, setTrending] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const fetchTrendingMovies = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/search?trending=true');
+      const response = await axios.get("/api/search?trending=true");
       setTrending(response.data.Search || []);
-      setError('');
+      setError("");
     } catch {
-      setError('Failed to fetch trending movies');
+      setError("Failed to fetch trending movies");
       setTrending([]);
     } finally {
       setLoading(false);
@@ -30,11 +30,13 @@ export default function Home() {
   const searchMovies = async (query: string) => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/search?title=${encodeURIComponent(query)}`);
+      const response = await axios.get(
+        `/api/search?title=${encodeURIComponent(query)}`
+      );
       setResults(response.data.Search || []);
-      setError('');
+      setError("");
     } catch {
-      setError('Failed to fetch movies');
+      setError("Failed to fetch movies");
       setResults([]);
     } finally {
       setLoading(false);
@@ -48,7 +50,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (search && typeof search === 'string') {
+    if (search && typeof search === "string") {
       searchMovies(search);
     }
   }, [search]);
@@ -56,7 +58,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <LoadingSpinner />
+        <Skeleton />
       </div>
     );
   }
@@ -70,7 +72,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto">
       {results.length > 0 ? (
         <MovieList movies={results} title="Search Results" />
       ) : (
