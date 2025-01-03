@@ -64,7 +64,7 @@ export default function MoviePage() {
   if (!movie) return <div className="text-center">Movie not found</div>;
 
   return (
-    <div className="container mx-auto px-4 pb-8 space-y-8">
+    <div className="container mx-auto pb-8 space-y-8">
       <Link
         href="/"
         className="inline-flex items-center font-semibold gap-2 text-amber-400 hover:text-amber-500 transition-colors mb-8"
