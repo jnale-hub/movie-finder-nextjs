@@ -6,7 +6,7 @@ export default function MovieSkeleton() {
         <div className="absolute inset-0 flex items-end p-8">
           <div className="space-y-4 w-full max-w-screen-lg">
             <div className="h-8 w-48 bg-neutral-700 rounded" />
-            <div className="h-4 w-96 bg-neutral-700 rounded" />
+            <div className="h-4 w-96 max-w-full bg-neutral-700 rounded" />
             <div className="flex gap-3 mt-4">
               <div className="h-10 w-24 bg-neutral-700 rounded-full" />
               <div className="h-10 w-24 bg-neutral-700 rounded-full" />
