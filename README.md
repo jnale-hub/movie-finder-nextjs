@@ -47,6 +47,7 @@ TMDB API
 - 📱 Responsive design for all screen sizes
 - 🎬 Genre-based movie discovery
 - ⚡ Optimized performance with Next.js
+- 🎬 Ability to play trailer of the movie
 
 ## Limitations
 
