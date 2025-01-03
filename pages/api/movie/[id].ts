@@ -35,7 +35,13 @@ export default async function handler(
       Genre: response.data.genres
         .map((g: { name: string }) => g.name)
         .join(", "),
-      videos: response.data.videos,
+        videos: {
+          results: response.data.videos.results.filter(
+            (video: { type: string; name: string; }) => 
+              video.type.toLowerCase() === "trailer" && 
+              video.name.toLowerCase().includes("official")
+          )
+        },
       credits: response.data.credits,
     };
 
