@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import Footer from './Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function Layout({ children, onSearch }: LayoutProps) {
           {children}
         </main>
       </div>
+      <Footer />
     </div>
   );
 }
