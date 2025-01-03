@@ -3,18 +3,18 @@ import { Error, Skeleton } from "@/components/ui";
 import { Movie } from "@/types/movie";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function Home() {
   const router = useRouter();
   const { search } = router.query;
+
   const [results, setResults] = useState<Movie[]>([]);
   const [trending, setTrending] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchTrendingMovies = async () => {
-    setLoading(true);
+  const fetchTrendingMovies = useCallback(async () => {
     try {
       const response = await axios.get("/api/search?trending=true");
       setTrending(response.data.Search || []);
@@ -22,20 +22,17 @@ export default function Home() {
     } catch {
       setError("Failed to fetch trending movies");
       setTrending([]);
-    } finally {
-      setLoading(false);
     }
-  };
+  }, []);
 
-  // Add error handling in the search or data fetching functions
-  const searchMovies = async (query: string) => {
-    setLoading(true);
+  const searchMovies = useCallback(async (query: string) => {
     try {
       const response = await axios.get(
         `/api/search?title=${encodeURIComponent(query)}`
       );
       if (!response.data.Search?.length) {
         setError("No movies found matching your search");
+        setResults([]);
         return;
       }
       setResults(response.data.Search);
@@ -43,29 +40,27 @@ export default function Home() {
     } catch {
       setError("Failed to fetch movies");
       setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!search) {
-      fetchTrendingMovies();
     }
   }, []);
 
   useEffect(() => {
-    if (search && typeof search === "string") {
-      searchMovies(search);
+    setLoading(true);
+    if (!search) {
+      fetchTrendingMovies().finally(() => setLoading(false));
     }
-  }, [search]);
+  }, [fetchTrendingMovies, search]);
+
+  useEffect(() => {
+    if (search && typeof search === "string") {
+      setLoading(true);
+      searchMovies(search).finally(() => setLoading(false));
+    }
+  }, [search, searchMovies]);
 
   if (loading) return <Skeleton />;
 
   if (error) {
-    return (
-      <Error error={error} />
-    );
+    return <Error error={error} />;
   }
 
   return (

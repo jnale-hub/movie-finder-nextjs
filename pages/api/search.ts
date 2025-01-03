@@ -22,7 +22,6 @@ export default async function handler(
         `${BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${title}&language=en-US&include_adult=false`
       );
     } else if (genre) {
-      // First get genre ID from TMDB
       const genreResponse = await axios.get(
         `${BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}&language=en-US`
       );

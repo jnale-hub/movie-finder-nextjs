@@ -13,29 +13,27 @@ export default function CategoryPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const fetchCategoryMovies = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const response = await axios.get(`/api/search?genre=${id}`);
+        setMovies(response.data.Search || []);
+      } catch {
+        setError("Failed to fetch movies");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (id) {
-      setLoading(true);
-      setError("");
       fetchCategoryMovies();
     }
   }, [id]);
 
-  const fetchCategoryMovies = async () => {
-    try {
-      const response = await axios.get(`/api/search?genre=${id}`);
-      setMovies(response.data.Search || []);
-    } catch {
-      setError("Failed to fetch movies");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   if (loading) return <Skeleton />;
   if (error) {
-    return (
-      <Error error={error} />
-    );
+    return <Error error={error} />;
   }
 
   return (
