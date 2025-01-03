@@ -23,8 +23,8 @@ export function MovieInfo({ movie }: MovieInfoProps) {
           <span className="font-bold text-lg">{movie.imdbRating}</span>
           <span className="text-neutral-500 text-sm">/ 10</span>
         </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-neutral-400">
-          <p>{movie.Runtime}</p>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-neutral-400">
+          <p>{movie.Runtime}</p>·
           <p>{movie.Genre}</p>
         </div>
         <div className="space-y-2">
