@@ -80,7 +80,7 @@ export default function MoviePage() {
               />
             ) : (
               <div className="w-1/3 aspect-[2/3] bg-gray-200 rounded-md flex items-center justify-center text-gray-500">
-                No Image Available
+                {movie.Title}
               </div>
             )}
             <MovieHero movie={movie} />
