@@ -2,6 +2,8 @@
 
 A simple yet elegant application to search and explore movie information using the TMDB API.
 
+Live demo: [movie-finder-nextjs-coral.vercel.app](https://movie-finder-nextjs-coral.vercel.app/)
+
 ## Features
 
 - 🎬 Search movies by title
