@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -23,13 +24,14 @@ export default function SearchBar({ onSearch, placeholder = 'Search for movies..
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 py-2 px-2 border rounded focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm text-neutral-800"
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          className="md:px-6 px-3 py-1 bg-amber-400 text-neutral-950 rounded-full hover:bg-amber-500 transition-colors font-bold text-sm"
         >
-          Search
+          <span className="hidden md:block">Search</span>
+          <FaSearch className="md:hidden block size-4" />
         </button>
       </div>
     </form>
