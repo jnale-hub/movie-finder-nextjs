@@ -24,15 +24,16 @@ export function MovieInfo({ movie }: MovieInfoProps) {
           <span className="text-neutral-500 text-sm">/ 10</span>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-neutral-400">
-          <p>{movie.Runtime}</p>·
-          <p>{movie.Genre}</p>
+          <p>{movie.Runtime}</p>·<p>{movie.Genre}</p>
         </div>
         <div className="space-y-2">
           <p>
-            <span className="font-medium">Director:</span> <span className="text-neutral-400">{movie.Director}</span>
+            <span className="font-medium">Director:</span>{" "}
+            <span className="text-neutral-400">{movie.Director}</span>
           </p>
           <p>
-            <span className="font-medium">Cast:</span> <span className="text-neutral-400">{movie.Actors}</span>
+            <span className="font-medium">Cast:</span>{" "}
+            <span className="text-neutral-400">{movie.Actors}</span>
           </p>
         </div>
         <div className="pt-4">
