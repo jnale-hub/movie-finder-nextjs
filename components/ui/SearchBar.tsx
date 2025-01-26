@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch, placeholder = 'Search for movies..
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 py-2 px-2 border rounded focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm text-neutral-800"
+          className="flex-1 py-2 px-2 border rounded focus:outline-none focus:ring-2 focus:ring-amber-400text-neutral-800"
         />
         <button
           type="submit"
