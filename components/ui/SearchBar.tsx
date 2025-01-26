@@ -28,7 +28,7 @@ export default function SearchBar({ onSearch, placeholder = 'Search for movies..
         />
         <button
           type="submit"
-          className="md:px-6 px-3 py-1 bg-amber-400 text-neutral-950 rounded-full hover:bg-amber-500 transition-colors font-bold text-sm"
+          className="md:px-6 px-3 py-1 bg-amber-400 text-neutral-950 rounded-full hover:bg-amber-500 transition-colors font-bold"
         >
           <span className="hidden md:block">Search</span>
           <FaSearch className="md:hidden block size-4" />
